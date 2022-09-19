@@ -483,7 +483,7 @@ class ILSVRC_HDF5_feats(data.Dataset):
         -------
             If the dataset loads both features and labels, return 4 elements: neighbor image,
              neighbor class label, instance features and instance radius
-            If the dataset loads only features (no labels), return 4 elements: neighbor image,
+            If the dataset loads only features (no labels), return 3 elements: neighbor image,
              instance features, instance radius
             If the dataset loads ony labels (no features), return 2 elements: neighbor image and
             neighbor class label.

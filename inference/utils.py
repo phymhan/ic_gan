@@ -19,11 +19,13 @@ import functools
 import torch
 import torch.nn as nn
 
-import stylegan2_ada_pytorch.dnnlib as dnnlib
-import stylegan2_ada_pytorch.legacy as legacy
+#import stylegan2_ada_pytorch.dnnlib as dnnlib
+#import stylegan2_ada_pytorch.legacy as legacy
 import BigGAN_PyTorch.utils as biggan_utils
 import BigGAN_PyTorch.BigGAN as BigGANModel
 import data_utils.utils as data_utils
+import pdb
+st = pdb.set_trace
 
 
 def get_sampling_funct(
@@ -377,6 +379,7 @@ def load_model_inference(config, device="cuda"):
         print("Experiment name is %s" % experiment_name)
 
         # Next, build the model
+        config['skip_init'] = True
         generator = BigGANModel.Generator(**config).to(device)
 
         # Load weights
