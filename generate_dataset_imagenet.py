@@ -107,7 +107,11 @@ if __name__ == "__main__":
     ])
     dataset = datasets.ImageFolder(root=args.image_folder, transform=transform)
     
-    os.makedirs(args.save_root, exist_ok=True)
+    # os.makedirs(args.save_root, exist_ok=True)
+    image_dir = os.path.join(args.save_root, 'images')
+    feature_dir = os.path.join(args.save_root, 'features')
+    os.makedirs(image_dir, exist_ok=True)
+    os.makedirs(feature_dir, exist_ok=True)
 
     index = np.arange(len(dataset))
     if args.part is not None:
@@ -144,6 +148,12 @@ if __name__ == "__main__":
 
         for j, im in enumerate(ims):
             classname, imagename = paths[j].split('/')[-2:]
-            os.makedirs(os.path.join(args.save_root, classname), exist_ok=True)
+            os.makedirs(os.path.join(image_dir, classname), exist_ok=True)
+            os.makedirs(os.path.join(feature_dir, classname), exist_ok=True)
             im.save(os.path.join(
-                args.save_root, classname, imagename))
+                image_dir, classname, imagename))
+            with open(os.path.join(feature_dir, classname, imagename+'.pkl'), 'wb') as f:
+                pickle.dump({
+                    'feature': input_features[j:j+1],
+                    'noise': noise_vector[j:j+1],
+                }, f)
